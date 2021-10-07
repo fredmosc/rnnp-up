@@ -13,21 +13,22 @@ import matplotlib.pyplot as plt
 v = torch.range(1,10).view(10,1)
 l = v**2
 
-model = nn.Sequential(nn.Linear(1,10), 
-                      nn.ReLU(), 
-                      nn.Linear(10, 1))
+model = nn.Sequential(nn.Linear(1, 10),
+                      nn.ReLU(),
+                      nn.Linear(10, 1)
+                      )
 
 criterion = nn.L1Loss()
 
 optimizer = optim.SGD(model.parameters(), lr=0.005)
 
 epochs = 20000
-for e in range(epochs):
-        output = model(v)
-        loss = criterion(output, 1)
-        loss.backward()
-        optimizer.step()
-        optimizer.zero_grad()
+for e in range(epochs):  
+    output = model(v)
+    loss = criterion(output,l)
+    loss.backward()
+    optimizer.step()
+    optimizer.zero_grad() 
         
 print(f"Training Loss: {loss.item()}")
 print(model(torch.tensor([5], dtype=torch.float)))
