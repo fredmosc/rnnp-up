@@ -17,11 +17,11 @@ model = nn.Sequential(nn.Linear(1,10),
                       nn.ReLU(), 
                       nn.Linear(10, 1))
 
-criterion = nn.MSELoss()
+criterion = nn.L1Loss()
 
-optimizer = optim.SGD(model.parameters(), lr=0.001)
+optimizer = optim.SGD(model.parameters(), lr=0.005)
 
-epochs = 1000
+epochs = 20000
 for e in range(epochs):
         output = model(v)
         loss = criterion(output, 1)
@@ -30,6 +30,7 @@ for e in range(epochs):
         optimizer.zero_grad()
         
 print(f"Training Loss: {loss.item()}")
+print(model(torch.tensor([5], dtype=torch.float)))
         
 predicted = model(v).detach().numpy()
 plt.plot(v.detach(),l.detach(), 'ro')
